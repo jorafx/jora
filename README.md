@@ -10,7 +10,9 @@ However there's a lot of information being generated as you work with an item th
 
 Many systems does that not... but they do so much more. There's workflows, board configuration, access management, reports, restrictions in how each of these components can be handled and visualized etc. Some of these tools are really amazing works of engineering and art that can do amazing things. We love some of them and ... do not love others as much.
 
-Jora is just simple. It's basically just an id where you can track data on. There's no workflow, state or board even. It's just the id and some very simple open fields for you to reference the data for.
+Jora is just simple. It's basically just an id where you can track data on. There's no workflow, reporter, assigne, state, time tracking, type of work, grouping of work, or board even.
+
+It's just the id and some very simple open fields for you to reference the data for.
 
 ## Our philosophy
 Whooa - where has a small project like us learned so big words... This is just some ideas - nothing big and important.
@@ -26,10 +28,26 @@ She's ok. She's not bad, but not good. It's just that it's not even interesting 
 
 We will build this to the *jora*-level. We don't aim to be awesome or good even, but it cannot be bad either.
 
+## Data model
+Jora... this is not much to talk about really, but basically there's two entities that we care about:
+
+* **Projects** - which just is a grouping of items really. There is probably a name for this, or at least a slug.
+* **Items** - which is the thing that you store information on - represented by a sticky on you physical board. For starters it will have:
+    - an id (**the** id)
+    - a summary or title
+    - a description
+
+Futher versions of the item might hold:
+    - label(s)
+    - worklog
+    - discussions
+    - attachments
+    - links to other items
+
 ## What is in here really?
 For now we just have a few ideas on what could be nice to have. Remember our philosophy from above.
 
-But you'll find these initial ideas here: 
+But you'll find these initial ideas here:
 
 | folder                      | idea, service, component or what have you |
 | --------------------------- | ---------------------------------------- |
@@ -38,7 +56,14 @@ But you'll find these initial ideas here:
 | [jora-web](/jora-web)       | an adequate web client                   |
 | [jora-canvas](/jora-canvas) | a very simple canvas that let's you place the items in a space, should really really need a electronic board |
 | [jora-slack](/jora-slack)   | a simple slack integration               |
+
 There might be more and we'll probably kill a few of these off too...
+
+### One repo? Why?
+
+1. It's very simple. It's ... jora
+2. Daniel wants it - he's the youngest so we let him decide
+3. [Google does it for all their stuff](https://www.youtube.com/watch?v=W71BTkUbdqE) so it might work
 
 ## Is this a real thing?
 No, not yet… but it might be. We'll see
