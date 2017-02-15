@@ -49,7 +49,7 @@ For now we just have a few ideas on what could be nice to have. Remember our phi
 
 But you'll find these initial ideas here:
 
-| folder                      | idea, service, component or what have you |
+| dea, service, component     |  description |
 | --------------------------- | ---------------------------------------- |
 | [jora-api](/jora-api)       | our main api                             |
 | [jora-cli](/jora-cli)       | a console integration                    |
