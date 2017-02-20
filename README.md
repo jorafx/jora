@@ -15,7 +15,7 @@ Jora is just simple. It's basically just an id where you can track data on. Ther
 It's just the id and some very simple open fields for you to reference the data for.
 
 ## Our philosophy
-Whooa - where has a small project like us learned so big words... This is just some ideas - nothing big and important.
+Whooa - that pretty big words for such a small project... This is just some ideas - nothing big and important.
 
 Well we want to try to do something that we call API-first; meaning we focus primarily on the API and let the clients become an interesting side effect. Sure clients are needed to interact with jora but really we did the API first.
 
