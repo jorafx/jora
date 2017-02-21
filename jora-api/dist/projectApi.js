@@ -11,31 +11,50 @@ var _koaRoute = require('koa-route');
 
 var _koaRoute2 = _interopRequireDefault(_koaRoute);
 
-var _coBody = require('co-body');
-
-var parse = _interopRequireWildcard(_coBody);
-
 var _monkUtil = require('./monkUtil.js');
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _marked = [create].map(regeneratorRuntime.mark);
+
+var parse = require('co-body');
+
 var projects = (0, _monkUtil.getMonkCollection)('projects');
 
-var create = regeneratorRuntime.mark(function create() {
+function create() {
+  var postedData, project;
   return regeneratorRuntime.wrap(function create$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          this.body = 'create called!';
-        case 1:
+          _context.next = 2;
+          return parse(this);
+
+        case 2:
+          postedData = _context.sent;
+
+
+          // TODO: Error handling
+
+          project = _extends({}, postedData, { created_at: new Date() });
+          _context.next = 6;
+          return projects.insert(project);
+
+        case 6:
+          project = _context.sent;
+
+
+          this.set('location', this.originalUrl + '/' + project._id);
+          this.status = 201;
+
+        case 9:
         case 'end':
           return _context.stop();
       }
     }
-  }, create, this);
-});
+  }, _marked[0], this);
+}
+
 var findByTag = regeneratorRuntime.mark(function findByTag() {
   return regeneratorRuntime.wrap(function findByTag$(_context2) {
     while (1) {
@@ -90,39 +109,12 @@ var remove = regeneratorRuntime.mark(function remove(id) {
 });
 
 var init = function init(app) {
-  app.use(_koaRoute2.default.post('/projects', regeneratorRuntime.mark(function _callee() {
-    var postedData, project;
-    return regeneratorRuntime.wrap(function _callee$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            _context6.next = 2;
-            return parse(this);
-
-          case 2:
-            postedData = _context6.sent;
-
-
-            // TODO: Error handling
-
-            project = _extends({}, postedData, { created_at: new Date() });
-            _context6.next = 6;
-            return projects.insert(project);
-
-          case 6:
-            project = _context6.sent;
-
-
-            this.set('location', this.originalUrl + '/' + p._id);
-            this.status = 201;
-
-          case 9:
-          case 'end':
-            return _context6.stop();
-        }
-      }
-    }, _callee, this);
-  })));
+  app.use(_koaRoute2.default.post('/projects', create));
+  app.use(_koaRoute2.default.get('/projects/findByTag', findByTag));
+  app.use(_koaRoute2.default.get('/project/:projectId', findById));
+  app.use(_koaRoute2.default.post('/project/:projectId', update));
+  app.use(_koaRoute2.default.put('/project/:projectId', update));
+  app.use(_koaRoute2.default.delete('/project/:projectId', remove));
 };
 
 exports.init = init;

@@ -13,3 +13,9 @@ This, again, has to do with the fact that we are using EcmaScript 6 code in our 
 ```javascript
 mocha ./src/**/*.test.js --compilers js:babel-core/register
 ```
+
+## Getting supertest to work
+Required me to read two of my own blogposts:
+
+* [Getting a EADDRINUSE when watching tests with mocha and supertest](http://www.marcusoft.net/2015/10/eaddrinuse-when-watching-tests-with-mocha-and-supertest.html)
+* [Verifying data in database after test](http://www.marcusoft.net/2015/05/supertest-verify-in-database-after-ended-request.html)

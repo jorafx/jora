@@ -2,7 +2,7 @@
 
 var mongoProdUri = process.env.MONGOHQ_URL || 'localhost:27017/jora';
 
-var config = {
+var configuration = {
   local: {
     mode: 'local',
     port: 3000,
@@ -21,5 +21,5 @@ var config = {
 };
 
 module.exports = function (mode) {
-  return config[mode || process.argv[2] || 'local'] || config.local;
+  return configuration[mode || process.argv[2] || 'local'] || configuration.local;
 };
