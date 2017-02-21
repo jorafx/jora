@@ -1,10 +1,12 @@
 import _ from 'koa-route'
 import koa from 'koa'
 
-import * as projects from './projectController'
-import * as tasks from './taskController'
+import * as projects from './projectApi'
+import * as tasks from './taskApi'
 
 const app = koa()
+
+projects.init(app)
 
 app.use(_.post('/projects', projects.create))
 app.use(_.get('/projects/findByTag', projects.findByTag))

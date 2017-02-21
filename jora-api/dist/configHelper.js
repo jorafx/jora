@@ -1,6 +1,8 @@
-const mongoProdUri = process.env.MONGOHQ_URL || 'localhost:27017/jora'
+'use strict';
 
-let configuration = {
+var mongoProdUri = process.env.MONGOHQ_URL || 'localhost:27017/jora';
+
+var config = {
   local: {
     mode: 'local',
     port: 3000,
@@ -16,8 +18,8 @@ let configuration = {
     port: process.env.PORT || 5000,
     mongoUrl: mongoProdUri
   }
-}
+};
 
 module.exports = function (mode) {
-  return configuration[mode || process.argv[2] || 'local'] || configuration.local
-}
+  return config[mode || process.argv[2] || 'local'] || config.local;
+};

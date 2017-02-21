@@ -22,6 +22,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _koa2.default)();
 
+projects.init(app);
+
 app.use(_koaRoute2.default.post('/projects', projects.create));
 app.use(_koaRoute2.default.get('/projects/findByTag', projects.findByTag));
 

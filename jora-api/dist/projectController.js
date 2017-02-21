@@ -3,6 +3,26 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.remove = exports.update = exports.findById = exports.findByTag = exports.create = exports.init = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _koaRoute = require('koa-route');
+
+var _koaRoute2 = _interopRequireDefault(_koaRoute);
+
+var _coBody = require('co-body');
+
+var parse = _interopRequireWildcard(_coBody);
+
+var _monkUtil = require('./monkUtil.js');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var projects = (0, _monkUtil.getMonkCollection)('projects');
+
 var create = regeneratorRuntime.mark(function create() {
   return regeneratorRuntime.wrap(function create$(_context) {
     while (1) {
@@ -69,6 +89,43 @@ var remove = regeneratorRuntime.mark(function remove(id) {
   }, remove, this);
 });
 
+var init = function init(app) {
+  app.use(_koaRoute2.default.post('/projects', regeneratorRuntime.mark(function _callee() {
+    var postedData, project;
+    return regeneratorRuntime.wrap(function _callee$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return parse(this);
+
+          case 2:
+            postedData = _context6.sent;
+
+
+            // TODO: Error handling
+
+            project = _extends({}, postedData, { created_at: new Date() });
+            _context6.next = 6;
+            return projects.insert(project);
+
+          case 6:
+            project = _context6.sent;
+
+
+            this.set('location', this.originalUrl + '/' + p._id);
+            this.status = 201;
+
+          case 9:
+          case 'end':
+            return _context6.stop();
+        }
+      }
+    }, _callee, this);
+  })));
+};
+
+exports.init = init;
 exports.create = create;
 exports.findByTag = findByTag;
 exports.findById = findById;
