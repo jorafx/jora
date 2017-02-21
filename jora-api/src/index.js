@@ -18,7 +18,7 @@ app.use(_.post('/tasks/:tasksId', tasks.update))
 app.use(_.put('/tasks/:tasksId', tasks.update))
 app.use(_.delete('/tasks/:tasksId', tasks.remove))
 
-if(!module.parent){
-	app.listen(config.port)
-	console.log(`listening on port ${config.port}`)
+if (!module.parent) {
+  app.listen(config.port)
+  console.log(`listening on port ${config.port}`)
 }

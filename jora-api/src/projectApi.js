@@ -3,7 +3,7 @@ const parse = require('co-body')
 import {getMonkCollection} from './monkUtil.js'
 const projects = getMonkCollection('projects')
 
-function *create() {
+function *create () {
   let postedData = yield parse(this)
 
   // TODO: Error handling
