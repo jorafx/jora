@@ -3,7 +3,7 @@ const parse = require('co-body')
 import {getMonkCollection} from './monkUtil.js'
 const projects = getMonkCollection('projects')
 
-let create = function *() {
+function *create() {
   let postedData = yield parse(this)
 
   // TODO: Error handling
@@ -22,6 +22,11 @@ let remove = function *(id) { this.body = `remove called with ${id}` }
 
 let init = function (app) {
   app.use(_.post('/projects', create))
+  app.use(_.get('/projects/findByTag', findByTag))
+  app.use(_.get('/project/:projectId', findById))
+  app.use(_.post('/project/:projectId', update))
+  app.use(_.put('/project/:projectId', update))
+  app.use(_.delete('/project/:projectId', remove))
 }
 
 export {init, create, findByTag, findById, update, remove}

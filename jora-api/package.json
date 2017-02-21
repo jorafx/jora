@@ -9,8 +9,8 @@
     "start": "node dist/index.js",
     "lint": "standard ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha ./src/**/*.test.js --compilers js:babel-core/register -u bdd -R list",
-    "test:watch": "npm t -- --watch"
+    "test": "mocha ./src/**/*.test.js --compilers js:babel-core/register -u bdd -R spec",
+    "test:watch": "npm t -- --watch -R dot"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,8 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "should": "^11.2.0",
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
