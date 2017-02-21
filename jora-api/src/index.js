@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import _ from 'koa-route'
 import koa from 'koa'
 

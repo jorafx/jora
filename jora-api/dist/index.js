@@ -1,5 +1,7 @@
 'use strict';
 
+require('babel-polyfill');
+
 var _koaRoute = require('koa-route');
 
 var _koaRoute2 = _interopRequireDefault(_koaRoute);
