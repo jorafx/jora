@@ -14,6 +14,17 @@ This, again, has to do with the fact that we are using EcmaScript 6 code in our 
 mocha ./src/**/*.test.js --compilers js:babel-core/register
 ```
 
+## Building dist with test files next to production code
+Is a little bit tricky of course, but can easily be accomplished with the `--exclude` flag to `babel`. Like we are doing in our `build:compile`-script:
+
+```json
+{
+    "scripts": {
+        "build:compile": "babel src --out-dir dist --ignore '**/*.test.js'"
+    }
+}
+```
+
 ## Getting supertest to work
 Required me to read two of my own blogposts:
 
