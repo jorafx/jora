@@ -1,6 +1,6 @@
-var mongoProdUri = process.env.MONGOHQ_URL || 'localhost:27017/jora'
+const mongoProdUri = process.env.MONGOHQ_URL || 'localhost:27017/jora'
 
-var config = {
+let config = {
   local: {
     mode: 'local',
     port: 3000,
