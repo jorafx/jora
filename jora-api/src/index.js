@@ -8,7 +8,6 @@ const app = koa()
 
 projects.init(app)
 
-app.use(_.post('/projects', projects.create))
 app.use(_.get('/projects/findByTag', projects.findByTag))
 
 app.use(_.get('/project/:projectId', projects.findById))
