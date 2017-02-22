@@ -15,10 +15,15 @@ function *create () {
   this.status = 201
 }
 
+let remove = function *(id) {
+  yield projects.remove({_id:id})
+  this.status = 200
+}
+
 let findByTag = function *() { this.body = 'findByTag called' }
 let findById = function *(id) { this.body = `findById called with ${id}` }
 let update = function *(id) { this.body = `update called with ${id}` }
-let remove = function *(id) { this.body = `remove called with ${id}` }
+
 
 let init = function (app) {
   app.use(_.post('/projects', create))

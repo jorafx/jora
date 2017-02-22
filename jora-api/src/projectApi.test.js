@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import {describe, it, beforeEach, afterEach} from 'mocha'
+import * as assert  from 'assert'
 import {getMonkCollection} from './monkUtil.js'
 const co = require('co')
 const app = require('./index.js')
@@ -34,11 +35,27 @@ describe('project api', () => {
         co(function *() {
           let p = yield projects.findOne({ name: PROJECTNAME })
           p.name.should.equal(PROJECTNAME)
-        }).then(done)
+        }).then(done, done)
       })
   })
-  it('supports findByTag', () => { })
-  it('supports findById', () => { })
-  it('supports update', () => { })
-  it('supports remove', () => { })
+  it('supports findByTag')
+  it('supports findById')
+  it('supports update')
+  it('supports remove', (done) => {
+    co(function *() {
+      let project = yield projects.insert({name: PROJECTNAME})
+      let id = project._id
+      let deleteUrl = '/project/' + id
+      request
+        .delete(deleteUrl)
+        .expect(200)
+        .expect('location', '/')
+        .end(() => {
+          co(function *() {
+            let p = yield projects.findOne({_id:id})
+            assert.equal(p, null)
+          }).then(done, done)
+        })
+    })
+  })
 })
