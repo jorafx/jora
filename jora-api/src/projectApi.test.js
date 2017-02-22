@@ -1,6 +1,6 @@
 import 'babel-polyfill'
 import {describe, it, beforeEach, afterEach} from 'mocha'
-import * as assert  from 'assert'
+import * as assert from 'assert'
 import {getMonkCollection} from './monkUtil.js'
 const co = require('co')
 const app = require('./index.js')
@@ -52,7 +52,7 @@ describe('project api', () => {
         .expect('location', '/')
         .end(() => {
           co(function *() {
-            let p = yield projects.findOne({_id:id})
+            let p = yield projects.findOne({_id: id})
             assert.equal(p, null)
           }).then(done, done)
         })
