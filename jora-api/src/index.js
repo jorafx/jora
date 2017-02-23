@@ -9,15 +9,7 @@ const config = require('./configHelper')()
 const app = module.exports = koa()
 
 projects.init(app)
-
-app.use(_.post('/tasks', tasks.create))
-app.use(_.get('/tasks/findByTag', tasks.findByTag))
-app.use(_.get('/tasks/findByProject', tasks.findByProject))
-
-app.use(_.get('/tasks/:tasksId', tasks.findById))
-app.use(_.post('/tasks/:tasksId', tasks.update))
-app.use(_.put('/tasks/:tasksId', tasks.update))
-app.use(_.delete('/tasks/:tasksId', tasks.remove))
+tasks.init(app)
 
 if (!module.parent) {
   app.listen(config.port)
