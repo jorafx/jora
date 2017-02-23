@@ -38,9 +38,42 @@ describe('project api', () => {
         }).then(done, done)
       })
   })
-  it('supports findByTag')
-  it('supports findById')
-  it('supports update')
+  it('supports update via put', (done) => {
+    co(function *() {
+      let project = yield projects.insert({name: "OldProjectName"})
+      let id = project._id
+      let updateUrl = '/project/' + id
+      request
+        .put(updateUrl)
+        .send({name: PROJECTNAME})
+        .expect(200)
+        .expect('location', updateUrl)
+        .end(() => {
+          co(function *() {
+            let p = yield projects.findOne({_id: id})
+            p.name.should.equal(PROJECTNAME)
+          }).then(done, done)
+        })
+    })
+  })
+  it('supports update via post', (done) => {
+    co(function *() {
+      let project = yield projects.insert({name: "OldProjectName"})
+      let id = project._id
+      let updateUrl = '/project/' + id
+      request
+        .post(updateUrl)
+        .send({name: PROJECTNAME})
+        .expect(200)
+        .expect('location', updateUrl)
+        .end(() => {
+          co(function *() {
+            let p = yield projects.findOne({_id: id})
+            p.name.should.equal(PROJECTNAME)
+          }).then(done, done)
+        })
+    })
+  })
   it('supports remove', (done) => {
     co(function *() {
       let project = yield projects.insert({name: PROJECTNAME})
@@ -49,13 +82,28 @@ describe('project api', () => {
       request
         .delete(deleteUrl)
         .expect(200)
-        .expect('location', '/')
         .end(() => {
           co(function *() {
             let p = yield projects.findOne({_id: id})
             assert.equal(p, null)
           }).then(done, done)
         })
+    })
+  })
+  it('supports findByTag')
+  it('supports findById', (done) => {
+    co(function *() {
+      let project = yield projects.insert({name: PROJECTNAME})
+      let id = project._id
+      let getUrl = '/project/' + id
+      request
+        .get(getUrl)
+        .set('Accept', 'application/json')
+        .expect('location', getUrl)
+        .expect((res) => {
+          res.body.name.should.equal(PROJECTNAME)
+        })
+        .expect(200, done)
     })
   })
 })

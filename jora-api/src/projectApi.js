@@ -21,8 +21,24 @@ let remove = function *(id) {
 }
 
 let findByTag = function *() { this.body = 'findByTag called' }
-let findById = function *(id) { this.body = `findById called with ${id}` }
-let update = function *(id) { this.body = `update called with ${id}` }
+let findById = function *(id) {
+  let project = yield projects.findOne({_id: id})
+
+  this.body = project
+  this.set('location', this.originalUrl)
+  this.status = 200
+}
+let update = function *(id) {
+  let postedData = yield parse(this)
+
+  // TODO: Error handling
+
+  let project = {...postedData, updated_at: new Date()}
+  project = yield projects.update({_id : id }, project)
+
+  this.set('location', this.originalUrl + '/' + project._id)
+  this.status = 200
+}
 
 let init = function (app) {
   app.use(_.post('/projects', create))
