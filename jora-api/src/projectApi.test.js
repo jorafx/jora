@@ -110,8 +110,7 @@ describe('project api', () => {
   })
   it('supports findByName', (done) => {
     co(function *() {
-      let project = yield projects.insert({name: PROJECTNAME})
-      let id = project._id
+      yield projects.insert({name: PROJECTNAME})
       let getUrl = '/projects/findByName?name=' + PROJECTNAME
 
       request
@@ -125,7 +124,7 @@ describe('project api', () => {
   })
 
   describe('supports findByTag', () => {
-    beforeEach((done) =>{
+    beforeEach((done) => {
       co(function *() {
         yield [
           projects.insert({name: PROJECTNAME + '1', tags: ['tag1']}),

@@ -1,12 +1,11 @@
 import 'babel-polyfill'
-import _ from 'koa-route'
 import koa from 'koa'
 
 import * as projects from './projectApi'
 import * as tasks from './taskApi'
 
-const config = require('./configHelper')()
 const app = module.exports = koa()
+const config = require('./configHelper')()
 
 projects.init(app)
 tasks.init(app)

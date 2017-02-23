@@ -110,8 +110,7 @@ describe('task api', () => {
   })
   it('supports findByProject', (done) => {
     co(function *() {
-      let task = yield tasks.insert({title: TASKTITLE, project: {name: 'PROJ1'}})
-      let id = task._id
+      yield tasks.insert({title: TASKTITLE, project: {name: 'PROJ1'}})
       let getUrl = '/tasks/findByProject?project=PROJ1'
 
       request
@@ -125,7 +124,7 @@ describe('task api', () => {
   })
 
   describe('supports findByTag', () => {
-    beforeEach((done) =>{
+    beforeEach((done) => {
       co(function *() {
         yield [
           tasks.insert({title: TASKTITLE + '1', tags: ['tag1']}),
