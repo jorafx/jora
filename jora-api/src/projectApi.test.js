@@ -25,7 +25,6 @@ describe('project api', () => {
   })
 
   it('supports create', (done) => {
-    // Post
     request
       .post('/projects')
       .send({name: PROJECTNAME})
@@ -40,9 +39,10 @@ describe('project api', () => {
   })
   it('supports update via put', (done) => {
     co(function *() {
-      let project = yield projects.insert({name: "OldProjectName"})
+      let project = yield projects.insert({name: 'OldProjectName'})
       let id = project._id
       let updateUrl = '/project/' + id
+
       request
         .put(updateUrl)
         .send({name: PROJECTNAME})
@@ -58,9 +58,10 @@ describe('project api', () => {
   })
   it('supports update via post', (done) => {
     co(function *() {
-      let project = yield projects.insert({name: "OldProjectName"})
+      let project = yield projects.insert({name: 'OldProjectName'})
       let id = project._id
       let updateUrl = '/project/' + id
+
       request
         .post(updateUrl)
         .send({name: PROJECTNAME})
@@ -79,6 +80,7 @@ describe('project api', () => {
       let project = yield projects.insert({name: PROJECTNAME})
       let id = project._id
       let deleteUrl = '/project/' + id
+
       request
         .delete(deleteUrl)
         .expect(200)
@@ -90,18 +92,83 @@ describe('project api', () => {
         })
     })
   })
-  it('supports findByTag')
   it('supports findById', (done) => {
     co(function *() {
       let project = yield projects.insert({name: PROJECTNAME})
       let id = project._id
       let getUrl = '/project/' + id
+
       request
         .get(getUrl)
         .set('Accept', 'application/json')
         .expect('location', getUrl)
         .expect((res) => {
           res.body.name.should.equal(PROJECTNAME)
+        })
+        .expect(200, done)
+    })
+  })
+  it('supports findByName', (done) => {
+    co(function *() {
+      let project = yield projects.insert({name: PROJECTNAME})
+      let id = project._id
+      let getUrl = '/projects/findByName?name=' + PROJECTNAME
+
+      request
+        .get(getUrl)
+        .set('Accept', 'application/json')
+        .expect((res) => {
+          res.body.name.should.equal(PROJECTNAME)
+        })
+        .expect(200, done)
+    })
+  })
+
+  describe('supports findByTag', () => {
+    beforeEach((done) =>{
+      co(function *() {
+        yield [
+          projects.insert({name: PROJECTNAME + '1', tags: ['tag1']}),
+          projects.insert({name: PROJECTNAME + '2', tags: ['tag1', 'tag 2']}),
+          projects.insert({name: PROJECTNAME + '3', tags: ['tag1', 'tag 2', 'tag 3']})
+        ]
+
+        done()
+      })
+    })
+    it('using 1 tag', (done) => {
+      let getUrl = '/projects/findByTag?tags=tag1'
+
+      request
+        .get(getUrl)
+        .set('Accept', 'application/json')
+        .expect((res) => {
+          res.body.projects.should.not.be.null
+          res.body.projects.length.should.equal(3)
+        })
+        .expect(200, done)
+    })
+    it.skip('using 2 tags - doesnt work cant get $in to work', (done) => {
+      let getUrl = '/projects/findByTag?tags=tag2,tag3'
+
+      request
+        .get(getUrl)
+        .set('Accept', 'application/json')
+        .expect((res) => {
+          res.body.projects.should.not.be.null
+          res.body.projects.length.should.equal(2)
+        })
+        .expect(200, done)
+    })
+    it('do not find non existing tag', (done) => {
+      let getUrl = '/projects/findByTag?tags=tag4'
+
+      request
+        .get(getUrl)
+        .set('Accept', 'application/json')
+        .expect((res) => {
+          res.body.projects.should.not.be.null
+          res.body.projects.length.should.equal(0)
         })
         .expect(200, done)
     })
