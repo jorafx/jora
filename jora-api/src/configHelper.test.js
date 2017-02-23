@@ -1,3 +1,4 @@
+import c  from './configHelper'
 import 'babel-polyfill'
 import {describe, it, before} from 'mocha'
 import * as should from 'should'
@@ -18,23 +19,23 @@ describe('Configuration', () => {
     let config = {}
 
     before((done) => {
-      config = require('./configHelper')('local')
+      config = c('local')
       done()
     })
 
     it('loads local configuration default', (done) => {
-      let localConfig = require('./configHelper')()
+      let localConfig = c()
       localConfig.mode.should.equal('local')
       done()
     })
 
     it('loads config by parameter', (done) => {
-      config = require('./configHelper')('local')
+      config = c('local')
       config.mode.should.equal('local')
       done()
     })
     it('loads local configuration for unknown configurations', (done) => {
-      var config = require('./configHelper')('unknown')
+      var config = c('unknown')
       config.mode.should.equal('local')
       done()
     })
@@ -45,7 +46,7 @@ describe('Configuration', () => {
   })
 
   describe('Staging configuration', function () {
-    var config = require('./configHelper')('staging')
+    var config = c('staging')
 
     it('loads config by parameter', (done) => {
       config.mode.should.equal('staging')
@@ -58,7 +59,7 @@ describe('Configuration', () => {
   })
 
   describe('Productions configuration', function () {
-    var config = require('./configHelper')('prod')
+    var config = c('prod')
 
     it('loads config by parameter', (done) => {
       config.mode.should.equal('prod')

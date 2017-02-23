@@ -18,6 +18,8 @@ let configuration = {
   }
 }
 
-module.exports = function (mode) {
+function config(mode) {
   return configuration[mode || process.argv[2] || 'local'] || configuration.local
 }
+
+export default config
