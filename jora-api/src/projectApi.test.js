@@ -128,8 +128,8 @@ describe('project api', () => {
       co(function *() {
         yield [
           projects.insert({name: PROJECTNAME + '1', tags: ['tag1']}),
-          projects.insert({name: PROJECTNAME + '2', tags: ['tag1', 'tag 2']}),
-          projects.insert({name: PROJECTNAME + '3', tags: ['tag1', 'tag 2', 'tag 3']})
+          projects.insert({name: PROJECTNAME + '2', tags: ['tag1', 'tag2']}),
+          projects.insert({name: PROJECTNAME + '3', tags: ['tag1', 'tag2', 'tag3']})
         ]
 
         done()
@@ -147,7 +147,7 @@ describe('project api', () => {
         })
         .expect(200, done)
     })
-    it.skip('using 2 tags - doesnt work cant get $in to work', (done) => {
+    it('using 2 tags', (done) => {
       let getUrl = '/projects/findByTag?tags=tag2,tag3'
 
       request

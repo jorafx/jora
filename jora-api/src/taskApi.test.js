@@ -128,8 +128,8 @@ describe('task api', () => {
       co(function *() {
         yield [
           tasks.insert({title: TASKTITLE + '1', tags: ['tag1']}),
-          tasks.insert({title: TASKTITLE + '2', tags: ['tag1', 'tag 2']}),
-          tasks.insert({title: TASKTITLE + '3', tags: ['tag1', 'tag 2', 'tag 3']})
+          tasks.insert({title: TASKTITLE + '2', tags: ['tag1', 'tag2']}),
+          tasks.insert({title: TASKTITLE + '3', tags: ['tag1', 'tag2', 'tag3']})
         ]
 
         done()
@@ -147,7 +147,7 @@ describe('task api', () => {
         })
         .expect(200, done)
     })
-    it.skip('using 2 tags - doesnt work cant get $in to work', (done) => {
+    it('using 2 tags', (done) => {
       let getUrl = '/tasks/findByTag?tags=tag2,tag3'
 
       request
